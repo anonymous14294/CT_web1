@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="manifest" href="/manifest.json">
+
+<style>
+body {background-color: rgb(218, 216, 216);}
+</style>
+  <style>
+   
+
+    .login-box {
+      border: 10px solid black ;
+      padding: 70px;
+      width: 20%;
+      margin: auto;
+      background-color: #2a2f3cfc;
+
+    }
+    .login-box h2{
+      color: #fff;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
+ // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+clevertap.account.push({"id": "464-RWK-8Z6Z"});
+clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
+clevertap.privacy.push({useIP: true}); //set the flag to true, if the user agrees to share their IP data
+ (function () {
+		 var wzrk = document.createElement('script');
+		 wzrk.type = 'text/javascript';
+		 wzrk.async = true;
+		 wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/a.js';
+		 var s = document.getElementsByTagName('script')[0];
+		 s.parentNode.insertBefore(wzrk, s);
+  })();
+  </script>
+
+</head>
+
+<body>
+  <div class="login-box">
+    <center>
+      <h2 style="color:rgb(170, 255, 11); font-size: 200%">CleverTap Web</h2>
+    </center>
+    <form onsubmit=" return pushCleverTapUserInfo()">
+      <center><input type="text" id="name" placeholder="NAME" required></center><br>
+      <center><input type="mail" id="email" placeholder="EMAIL" required></center><br>
+      <center><input type="text" id="identity" placeholder="Identity" required></center><br>
+      <center><input type="text" id="phone" placeholder="Eg. +91......" required></center><br>
+      <center><input type="date" id="DOB" placeholder="Enter DOB here" value="2014-01-01" min="1920-01-01" max="2014-12-31"></center><br>
+      <center><input style="background-color: rgb(2, 66, 2); color: White"type="submit" value="Submit"></center>
+    </form><br>
+    <form onsubmit="return pushCleverTapEvent()">
+      <center><input type="text" id="event" placeholder="EVENT" required></center><br>
+      <center><input style="background-color: rgb(2, 66, 2); color: White"type="submit" value="PUSH EVENT"></center>
+    </form>
+  </div>
+  <script>
+
+    function pushCleverTapUserInfo() {
+      var name = $('#name').val()
+      var email = $('#email').val()
+      var identity = $('#identity').val()
+      var phone = $('#phone').val()
+      var date = $('#DOB').val()
+      console.log(name);
+      console.log(email);
+      console.log(identity);
+      console.log(phone);
+      console.log(date);
+      clevertap.onUserLogin.push({
+        "Site": {
+          "Name": name, // User's name
+          "Email": email, // User's Email
+          "Identity": identity,
+          "Phone": phone,
+          "DOB": new Date()
+        }
+      });
+      return false;
+
+    }
+    function pushCleverTapEvent() {
+      var eventName = $('#event').val()
+      console.log(eventName);
+      clevertap.event.push(eventName);
+      return false;
+    }
+
+    clevertap.notifications.push({
+      "titleText":'Would you like to receive Push Notifications?',
+      "okButtonText":'Get me In!',
+      "rejectButtonText":'No Thanks',
+      "okButtonColor":'#f28046',
+      "askAgainTimeInSeconds":5,
+      "serviceWorkerPath": "https://anonymous14294.github.io/CT_web1/clevertap_sw.js"
+    });
+
+  </script>
+</body>
+
+</html>
